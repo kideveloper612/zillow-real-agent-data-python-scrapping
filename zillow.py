@@ -68,12 +68,14 @@ def argument_parse():
     return location, days
 
 def get_sale(page, data_id, day_count):
+    global past_sales
     if page == 1:
         past_sales = []
     header = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
     }
     url = 'https://www.zillow.com/ajax/profile-sales-history/?p=%s&zuid=%s' % (page, data_id)
+    print(url)
     res = requests.request('GET', url=url, headers=header).text
     tx = json.loads(res)['tx']
     if tx[0] is None:
